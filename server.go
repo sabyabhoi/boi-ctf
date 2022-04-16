@@ -39,16 +39,20 @@ func postFlagRoute(c *fiber.Ctx) error {
 		return err
 	}
 
+	result := db.FirstOrCreate(u)
+	if result.Error != nil {
+		return result.Error
+	}
+
 	return c.JSON(u)
 }
 
-func setupServer(port string) {
+func setupRoutes() *fiber.App {
 	app := fiber.New()
 
 	app.Use(logger.New())
 
 	app.Get("/leaderboard", leaderboardRoute)
 	app.Post("/", postFlagRoute)
-
-	app.Listen(port)
+	return app
 }

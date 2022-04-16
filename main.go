@@ -1,6 +1,6 @@
 package main
 
 func main() {
-	
-	setupServer(":8080")
+	app := setupRoutes()
+	app.Listen(":8080")
 }
