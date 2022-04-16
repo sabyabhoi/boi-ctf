@@ -13,7 +13,7 @@ type User struct {
 }
 
 func (u User) Validate(Flag string) error {
-	match, _ := regexp.MatchString("20\\d{2}\\w{4}\\d{4}H", u.ID)
+	match, _ := regexp.MatchString("20\\d{2}\\w{4}\\d{4}H\\b", u.ID)
 	if !match {
 		return errors.New("Invalid ID")
 	}

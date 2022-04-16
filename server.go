@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"os"
 	"time"
 
@@ -33,7 +32,6 @@ func postFlagRoute(c *fiber.Ctx) error {
 	u.CreatedAt = time.Now()
 
 	flag := os.Getenv("FLAG")
-	log.Println(flag)
 
 	if err := u.Validate(flag); err != nil {
 		return err
@@ -47,10 +45,12 @@ func postFlagRoute(c *fiber.Ctx) error {
 	return c.JSON(u)
 }
 
-func setupRoutes() *fiber.App {
+func setupRoutes(logging bool) *fiber.App {
 	app := fiber.New()
 
-	app.Use(logger.New())
+	if logging {
+		app.Use(logger.New())
+	}
 
 	app.Get("/leaderboard", leaderboardRoute)
 	app.Post("/", postFlagRoute)
