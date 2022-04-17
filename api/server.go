@@ -1,4 +1,4 @@
-package main
+package api
 
 import (
 	"os"
@@ -45,7 +45,7 @@ func postFlagRoute(c *fiber.Ctx) error {
 	return c.JSON(u)
 }
 
-func setupRoutes(logging bool) *fiber.App {
+func SetupRoutes(logging bool) *fiber.App {
 	app := fiber.New()
 
 	if logging {

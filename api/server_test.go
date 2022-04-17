@@ -1,4 +1,4 @@
-package main
+package api
 
 import (
 	"bytes"
@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var app = setupRoutes(false)
+var app = SetupRoutes(false)
 
 func TestLeaderboardRoute(t *testing.T) {
 	req := httptest.NewRequest("GET", "/leaderboard", nil)
