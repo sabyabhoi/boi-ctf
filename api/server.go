@@ -6,10 +6,15 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/template/html"
 	"gorm.io/gorm"
 )
 
 var db *gorm.DB = setupDB()
+
+func mainRoute(c *fiber.Ctx) error {
+	return c.Render("index", fiber.Map{})
+}
 
 func leaderboardRoute(c *fiber.Ctx) error {
 
@@ -46,13 +51,19 @@ func postFlagRoute(c *fiber.Ctx) error {
 }
 
 func SetupRoutes(logging bool) *fiber.App {
-	app := fiber.New()
+	engine := html.New("./static", ".html")
+	app := fiber.New(fiber.Config{
+		Views: engine,
+	})
+
+	app.Static("/static", "./static")
 
 	if logging {
 		app.Use(logger.New())
 	}
 
 	app.Get("/leaderboard", leaderboardRoute)
+	app.Get("/", mainRoute)
 	app.Post("/", postFlagRoute)
 	return app
 }

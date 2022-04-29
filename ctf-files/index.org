@@ -1,0 +1,34 @@
+#+TITLE: Welcome to boiCTF
+
+[[https://en.wikipedia.org/wiki/Capture_the_flag_(cybersecurity)][What's a CTF?]]
+
+* URL Endpoints you need to know about
+
+*Note*: Replace <IP> with the actual IP address provided to you.
+
+** Running the binary
+For binary CTF, a binary executable is running on port =8081=. To actually run it, use netcat:
+#+begin_src bash
+nc <IP> 8081
+#+end_src
+
+** Getting the binary
+Since you're supposed to reverse engineer the binary, the binary along with a hint file is provided to you (with the flag redacted obviously) on the following endpoint:
+#+begin_src
+<IP>:8080/files
+#+end_src
+
+** Posting the flag
+Send a post request to =<IP>:8080/= with your BITS ID and the flag in the JSON format to the:
+#+begin_src json
+{
+    "ID": "20XXXXXXXXH",
+    "flag": "boiCTF{SAMPLE-FLAG}"
+}
+#+end_src
+
+** Viewing the leaderboard
+The following endpoint returns an array of the top performs and when they submitted the flag in JSON format:
+#+begin_src
+<IP>:8080/leaderboard
+#+end_src
